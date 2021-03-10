@@ -1,0 +1,14 @@
+<h1>ブログ詳細画面</h1>
+<p>タイトル: <%= @task.title %></p>
+<p>内容: <%= @task.content %></p>
+
+<% unless @task.user_id == current_user.id %>
+  <% if @favorite.present? %>
+    <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to 'お気に入りする', favorites_path(task_id: @task.id), method: :post, class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+
+<%= link_to "タスク一覧画面にもどる", tasks_path %>
