@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   # セッション用のヘルパーモジュールをインクルードする
-  protect_from_forgery with: :exception
-  include SessionsHelper
-  
+  #【7】 protect_from_forgery with: :exception
+  # include SessionsHelper
+
   # ログインしていないユーザはログイン画面に飛ばす
   # before_action :login_required
   # private

@@ -14,6 +14,17 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  # 「headless_chromeのno-sandboxオプション」を追加する
+    config.before(:each) do |example|
+      if example.metadata[:type] == :system
+        driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]  do |options|
+          options.add_argument('no-sandbox')
+        end
+      end
+    end
+
+
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -37,25 +48,14 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  #rspecにて追加 「headless_chromeのno-sandboxオプション」を追加する
-  config.before(:each) do |example|
-   if example.metadata[:type] == :system
-     driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]  do |options|
-     options.add_argument('no-sandbox')
-      end
-    end
-  end
-
-
-
-
-
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards
   # compatibility in RSpec 3). It causes shared context metadata to be
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
