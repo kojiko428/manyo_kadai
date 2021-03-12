@@ -22,7 +22,10 @@ RSpec.configure do |config|
         end
       end
     end
-
+# ブラウザを表示させながらテストが実施
+    # config.before(:each, type: :system) do
+    # driven_by(:selenium_chrome)
+    # end
 
 
   # rspec-expectations config goes here. You can use an alternate

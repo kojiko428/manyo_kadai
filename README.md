@@ -22,3 +22,16 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+User
+|  column             |  data  |
+| ------------------- | ------ |
+| name                | string |
+| password_digest     | string |
+| email               | string |
+
+Task
+|  column             |  data  |
+| ------------------- | ------ |
+| title               | string |
+| content             | text  |
