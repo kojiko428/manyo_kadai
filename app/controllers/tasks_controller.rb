@@ -19,7 +19,7 @@ class TasksController < ApplicationController
       elsif @task.save
        # 一覧画面へ遷移して"ブログを作成しました！"とメッセージを表示します。
        #【5】{@task.user.name}さんが
-        redirect_to new_task_path , notice: " ブログを作成しました！"
+        redirect_to tasks_path , notice: " ブログを作成しました！"
        else
        # 入力フォームを再描画します。
         render :new
