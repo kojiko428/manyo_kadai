@@ -39,6 +39,20 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+# デバック
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
+# rspec
+  gem 'spring'                  #【0】
+
+  gem 'rspec-rails'             #【1】
+  gem 'spring-commands-rspec'   #【2】
+  gem 'factory_bot_rails'       #【3】
+  gem 'faker'                   #【4】
+  gem 'launchy'                 #【5】
+
 end
 
 group :development do
@@ -52,11 +66,14 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
+  gem 'capybara', '>= 2.15'        #【6】
+  # gem 'selenium-webdriver'       #【-】島さん コメントアウトしない
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+# rspec実装時コメントアウト
+  # gem 'chromedriver-helper'      #【-】島さん コメントアウトしない
+  gem 'webdrivers'                #【7】島さん コメントアウト
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'bcrypt', '3.1.11'
