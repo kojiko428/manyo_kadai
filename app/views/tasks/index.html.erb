@@ -7,11 +7,15 @@
   <tr>
     <th>タイトル</th>
     <th>内容</th>
+    <th>作成日時</th>
   </tr>
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.title %></td>
+    <!-- rsepc用 index.html.erbにclass名を命名 -->
+    <td class="task_row"><%= task.title  %></td>
     <td><%= task.content %></td>
+    <!-- lメソッド＆formatオプション -->
+    <td><%= l task.created_at, format: :short %></td>
     <!-- 【8】 -->
     <!-- <td><%#= "#{task.user.name}さんのタスク" %></td> -->
     <td><%= link_to '詳細を確認する', task_path(task.id) %></td>

@@ -3,6 +3,8 @@ class TasksController < ApplicationController
 
      def index
       @tasks = Task.all
+      #=>新しい順の投稿一覧  created_atは作成日時 descは降
+      @tasks = Task.all.order(created_at: :desc)
       # binding.pry # raise
      end
      def new
