@@ -4,12 +4,15 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   before do
       # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-      FactoryBot.create(:task)
-      FactoryBot.create(:second_task)
-      # 作成済みのタスク一覧が表示される
-      task = FactoryBot.create(:task, title: 'task')
-      # 該当タスクの内容が表示される
+      # FactoryBot.create(:task)
+      # FactoryBot.create(:second_task)
+      # 【step1】作成済みのタスク一覧が表示される
+      # task = FactoryBot.create(:task, title: 'task')
+      # 【step1】該当タスクの内容が表示される
       @task = FactoryBot.create(:task, title: 'task')
+      # 【step2】新しいタスクが一番上に表示される
+      FactoryBot.create(:task,title:'task1',content: 'content1')
+      FactoryBot.create(:second_task,title: 'task2',content: 'content2')
     end
 
   describe '新規作成機能' do
@@ -22,25 +25,19 @@ RSpec.describe 'タスク管理機能', type: :system do
       #「タスク名」というラベル名の入力欄と、
       # 「タスク詳細」というラベル名の入力欄にタスクのタイトルと内容をそれぞれ入力する
       # ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-
       fill_in 'task_title', with: 'task'
       # ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
       fill_in 'task_content', with: 'content'
-
-
       # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
       # ここに「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
       click_on  'Create'
-
       # errors ページ移動する必要がない
       # visit tasks_path
-
       # 4. clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
       # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
       # ここにタスク詳細ページに、テストコードで作成したデータが
       # タスク詳細画面にhave_contentされているか（含まれているか）を確認（期待）するコードを書く
       expect(page).to have_content 'task'
-
       # epcctは1つだけに絞る
       # expect(page).to have_content 'content'
 
@@ -63,15 +60,12 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクが作成日時の降順に並んでいる場合' do
           it '新しいタスクが一番上に表示される' do
             # ここに実装する
-              # tasks_pathに遷移する（タスク一覧ページに遷移する）
+            #before do にて2つ作成
             visit tasks_path
-            # タスク一覧を配列として取得するため、View側でidを振っておく
+            # タスク一覧を配列として取得するため、View側(index) にidを振った
             task_list = all('.task_row')
-           # 入力が最新
             expect(task_list[0]).to have_content 'task2'
-
-            expect(task_list[1]).to have_content 'task'
-
+            expect(task_list[1]).to have_content 'task1'
       end
     end
   end

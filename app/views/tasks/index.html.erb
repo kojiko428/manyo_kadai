@@ -11,7 +11,8 @@
   </tr>
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.title %></td>
+    <!-- rsepc用 index.html.erbにclass名を命名 -->
+    <td class="task_row"><%= task.title  %></td>
     <td><%= task.content %></td>
     <!-- lメソッド＆formatオプション -->
     <td><%= l task.created_at, format: :short %></td>
