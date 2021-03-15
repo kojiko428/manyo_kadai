@@ -1,5 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  let!(:task) { FactoryBot.create(:task, title: 'task') }
+
   before do
       # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
       FactoryBot.create(:task)
@@ -61,7 +63,10 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクが作成日時の降順に並んでいる場合' do
           it '新しいタスクが一番上に表示される' do
             # ここに実装する
-
+              # tasks_pathに遷移する（タスク一覧ページに遷移する）
+            visit tasks_path
+            # タスク一覧を配列として取得するため、View側でidを振っておく
+            task_list = all('.task_row')
 
       end
     end
