@@ -67,6 +67,10 @@ RSpec.describe 'タスク管理機能', type: :system do
             visit tasks_path
             # タスク一覧を配列として取得するため、View側でidを振っておく
             task_list = all('.task_row')
+           # 入力が最新
+            expect(task_list[0]).to have_content 'task2'
+
+            expect(task_list[1]).to have_content 'task'
 
       end
     end
