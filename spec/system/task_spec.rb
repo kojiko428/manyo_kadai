@@ -13,6 +13,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       # 【step2】新しいタスクが一番上に表示される
       FactoryBot.create(:task,title:'task1',content: 'content1')
       FactoryBot.create(:second_task,title: 'task2',content: 'content2')
+      visit tasks_path
     end
 
   describe '新規作成機能' do
@@ -49,7 +50,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '作成済みのタスク一覧が表示される' do
         # テストで使用するためのタスクを作成
         # タスク一覧ページに遷移
-        visit tasks_path
+        #before doメソッドにて省略:visit tasks_path
         # visitした（遷移した）page（タスク一覧ページ）に「task」という文字列が
         # have_contentされているか（含まれているか）ということをexpectする（確認・期待する）
         expect(page).to have_content 'task'
@@ -60,8 +61,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクが作成日時の降順に並んでいる場合' do
           it '新しいタスクが一番上に表示される' do
             # ここに実装する
-            #before do にて2つ作成
-            visit tasks_path
+            #before do にて事前に2つ作成
+            #before doメソッドにて省略:visit tasks_path
             # タスク一覧を配列として取得するため、View側(index) にidを振った
             task_list = all('.task_row')
             expect(task_list[0]).to have_content 'task2'
@@ -72,7 +73,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
-         # task_path(task.id)
+         #ルート task_path(task.id)
          visit task_path(@task)
          expect(page).to have_content 'task'
 
