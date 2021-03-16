@@ -5,6 +5,7 @@
 <p><%= notice %></p>
 <!-- step3 -->
 <%= link_to "終了期限でソートする", tasks_path(sort_deadline: "true") %>
+<%= link_to "終了期限でソート解除する", tasks_path %>
 
 <table>
   <tr>
@@ -22,8 +23,8 @@
     <!-- rsepc用 index.html.erbにclass名を命名 -->
     <td class="task_row"><%= task.title  %></td>
     <td><%= task.content %></td>
-    <!-- lメソッド＆formatオプション -->
-    <td><%= l task.deadline, format: :short %></td>
+    <!-- lメソッド＆formatオプション too_shortに設定-->
+    <td class="deadline_row"><%= l task.deadline, format: :too_short %></td>
     <!-- lメソッド＆formatオプション -->
     <td><%= l task.created_at, format: :short %></td>
 

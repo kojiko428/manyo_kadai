@@ -19,8 +19,9 @@
   </div>
   <div>
   <!-- 【step3】date_fielde メソッドにて日付を入力 -->
+  <div class="task_deadline">
   <%= form.label :deadline %>
-  <%= form.date_field :deadline%>
+  <%= form.date_field :deadline ,id: 'task_deadline'%>
   </div>
 
   <!-- 【step3】プルダウン f.selectはRailsのヘルパーメソッドform_withと一緒に使用 -->

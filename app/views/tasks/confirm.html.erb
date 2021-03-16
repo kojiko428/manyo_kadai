@@ -6,7 +6,7 @@
   <p>タイトル:<%= @task.title %></p>
   <p>本文:<%= @task.content %></p>
     <!-- lメソッド＆formatオプション -->
-  <p>終了期限： <%=l @task.deadline , format: :short%></p>
+  <p>終了期限： <%=l @task.deadline , format: :too_short%></p>
   <%= form.submit  "登録する" %>
   <%= form.submit "戻る", name: 'back' %>
 <% end %>

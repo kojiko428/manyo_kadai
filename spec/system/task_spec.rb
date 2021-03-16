@@ -3,45 +3,25 @@ RSpec.describe 'タスク管理機能', type: :system do
   let!(:task) { FactoryBot.create(:task, title: 'task') }
 
   before do
-      # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-      # FactoryBot.create(:task)
-      # FactoryBot.create(:second_task)
-      # 【step1】作成済みのタスク一覧が表示される
-      # task = FactoryBot.create(:task, title: 'task')
-      # 【step1】該当タスクの内容が表示される
-      @task = FactoryBot.create(:task, title: 'task')
-      # 【step2】新しいタスクが一番上に表示される
-      FactoryBot.create(:task,title:'task1',content: 'content1')
-      FactoryBot.create(:second_task,title: 'task2',content: 'content2')
+      FactoryBot.create(:task)
+      FactoryBot.create(:second_task)
       visit tasks_path
     end
 
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
-      # 1. new_task_pathに遷移する（新規作成ページに遷移する）
-      # ここにnew_task_pathにvisitする処理を書く
       visit new_task_path
-      # 2. 新規登録内容を入力する
-      #「タスク名」というラベル名の入力欄と、
-      # 「タスク詳細」というラベル名の入力欄にタスクのタイトルと内容をそれぞれ入力する
-      # ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-      fill_in 'task_title', with: 'task'
-      # ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-      fill_in 'task_content', with: 'content'
-      # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
-      # ここに「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
-      click_on  'Create'
-      # errors ページ移動する必要がない
-      # visit tasks_path
-      # 4. clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
-      # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
-      # ここにタスク詳細ページに、テストコードで作成したデータが
-      # タスク詳細画面にhave_contentされているか（含まれているか）を確認（期待）するコードを書く
-      expect(page).to have_content 'task'
-      # epcctは1つだけに絞る
-      # expect(page).to have_content 'content'
+      fill_in 'task_title', with: 'task1'
+      fill_in 'task_content', with: 'content1'
+      # 年の部分が６桁分入る
+      fill_in  'deadline', with: DateTime.now.beginning_of_day + 1.day
 
+      click_on  'Create'
+
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'content1'
+      expect(page).to have_content '03/17'
       end
     end
   end
@@ -59,20 +39,21 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
         # テスト内容を追加で記載する
     context 'タスクが作成日時の降順に並んでいる場合' do
-          it '新しいタスクが一番上に表示される' do
-            # ここに実装する
-            #before do にて事前に2つ作成
-            #before doメソッドにて省略:visit tasks_path
-            # タスク一覧を配列として取得するため、View側(index) にidを振った
-            task_list = all('.task_row')
-            expect(task_list[0]).to have_content 'task2'
-            expect(task_list[1]).to have_content 'task1'
+          # it '新しいタスクが一番上に表示される' do
+          it '終了期限の降順で表示される' do
+
+            click_on '終了期限でソートする'
+
+            task_list = all('.deadline_row')
+            expect(task_list[0]).to have_content '03/16'
+            expect(task_list[1]).to have_content '03/17'
       end
     end
   end
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
+         @task = FactoryBot.create(:task, title: 'task')
          #ルート task_path(task.id)
          visit task_path(@task)
          expect(page).to have_content 'task'
