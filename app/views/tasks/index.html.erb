@@ -22,7 +22,8 @@
     <!-- rsepc用 index.html.erbにclass名を命名 -->
     <td class="task_row"><%= task.title  %></td>
     <td><%= task.content %></td>
-    <td><%= task.deadline %></td>
+    <!-- lメソッド＆formatオプション -->
+    <td><%= l task.deadline, format: :short %></td>
     <!-- lメソッド＆formatオプション -->
     <td><%= l task.created_at, format: :short %></td>
 

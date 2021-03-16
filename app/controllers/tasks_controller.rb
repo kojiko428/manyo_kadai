@@ -2,9 +2,16 @@ class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
 
      def index
-      @tasks = Task.all
-      #=>新しい順の投稿一覧  created_atは作成日時 descは降
-      @tasks = Task.all.order(created_at: :desc)
+      # # タスクの一覧
+      # @tasks = Task.all
+      # #=>新しい順の投稿一覧  created_atは作成日時 descは降
+      # @tasks = Task.all.order(created_at: :desc)
+
+      if @tasks =Task.all.order(params[:sort_expired])
+         @tasks = Task.all.order(deadline: :desc)
+      else
+         @tasks = Task.all.order(created_at: :desc)
+      end
       # binding.pry # raise
      end
      def new
@@ -62,7 +69,7 @@ class TasksController < ApplicationController
 
     private
     def task_params
-      params.require(:task).permit(:title, :content)
+      params.require(:task).permit(:title, :content, :deadline)
     end
     def set_task
     @task = Task.find(params[:id])
