@@ -1,6 +1,10 @@
 <h1>ブログ詳細画面</h1>
 <p>タイトル: <%= @task.title %></p>
 <p>内容: <%= @task.content %></p>
+<!-- step3 追加 -->
+<p>期限： <%= @task.deadline %></p>
+<p>ステータス： <%= @task.status %></p>
+<p>優先順位: <%= @task.priority %></p>
 
 <!-- 【8】 -->
 <%# unless @task.user_id == current_user.id %>
