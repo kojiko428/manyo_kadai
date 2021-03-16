@@ -7,10 +7,12 @@ class TasksController < ApplicationController
       # #=>新しい順の投稿一覧  created_atは作成日時 descは降
       # @tasks = Task.all.order(created_at: :desc)
 
-      if @tasks =Task.all.order(params[:sort_expired])
-         @tasks = Task.all.order(deadline: :desc)
+     # paramsでソートからのデータをキャッチ (nil?メソッド)
+      if params[:sort_deadline].nil?
+        # trueを返したら表示
+        @tasks = Task.all.order(created_at: :desc)
       else
-         @tasks = Task.all.order(created_at: :desc)
+        @tasks = Task.all.order(deadline: :desc)
       end
       # binding.pry # raise
      end
