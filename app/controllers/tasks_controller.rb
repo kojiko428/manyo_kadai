@@ -1,82 +1,90 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-     def index
+  def index
+    # binding.pry
       # # タスクの一覧
       # @tasks = Task.all
       # #=>新しい順の投稿一覧  created_atは作成日時 descは降
       # @tasks = Task.all.order(created_at: :desc)
-
-     # paramsでソートからのデータをキャッチ (nil?メソッド)
-      if params[:sort_deadline].nil?
-        # trueを返したら表示
+    if params[:title].present? && params[:status].present?
+      @tasks = Task.search_status_title params[:title],params[:status]
+    elsif params[:title].present?
+      @tasks = Task.search_title params[:title]
+    elsif params[:status].present?
+      @tasks = Task.search_status params[:status]
+    else
+    # paramsでソートからのデータをキャッチ (nil?メソッド)
+    if params[:sort_deadline].nil?
+       # trueを返したら表示
       @tasks = Task.all.order(created_at: :desc)
-      else
+    else
       @tasks = Task.all.order(deadline: :desc)
-      end
-      # binding.pry # raise
-     end
-     def new
-      @task =Task.new
-     end
+    end
+    end 
+  end
+
+  def new
+    @task =Task.new
+  end
      # 追記する
-     def create
+  def create
        # 【5】 @task = current_user.tasks.build(task_params)
-       @task=Task.create(task_params)
+    @task=Task.create(task_params)
        # @task.user_id = current_task.id  ↑Buildメソッドにて省略
        # 現在ログインしているuserのidを、taskのuser_idカラムに挿入する
-       if params[:back]
-        render :new
-      elsif @task.save
+    if params[:back]
+      render :new
+    elsif @task.save
        # 一覧画面へ遷移して"ブログを作成しました！"とメッセージを表示します。
        #【5】{@task.user.name}さんが
-        redirect_to tasks_path , notice: " ブログを作成しました！"
-       else
+      redirect_to tasks_path , notice: " ブログを作成しました！"
+    else
        # 入力フォームを再描画します。
-        render :new
-        end
-     end
+      render :new
+    end
+  end
 
-    def show
+  def show
       #【6】 @favorite = current_user.favorites.find_by(task_id: @task.id)
       # @task = Task.find(params[:id])
-    end
+  end
 
-    def edit
+  def edit
       # @task = Task.find(params[:id])
-    end
-    def update
+  end
+
+  def update
       # @task = Task.find(params[:id])
       # 【5】{@task.user.name}さんが
-      if @task.update(task_params)
-        redirect_to tasks_path , notice: " ブログを編集しました！"
-      else
-        render :edit
-      end
+    if @task.update(task_params)
+      redirect_to tasks_path , notice: " ブログを編集しました！"
+    else
+      render :edit
     end
+  end
      #【5】{@task.user.name}さんが
-     def destroy
-       @task.destroy
-       redirect_to tasks_path, notice:"ブログを削除しました！"
-     end
+  def destroy
+    @task.destroy
+    redirect_to tasks_path, notice:"ブログを削除しました！"
+  end
 
-     def confirm
+  def confirm
         # 【5】@task = current_user.tasks.build(task_params)
-         @task = Task.new(task_params)
+    @task = Task.new(task_params)
          # @task.user_id = current_task.id Buildメソッドにて省略
          # # 現在ログインしているuserのidを、taskのuser_idカラムに挿入する
-         render :new if @task.invalid?
-       end
+    render :new if @task.invalid?
+  end
 
 
-    private
-    def task_params
+  private
+  def task_params
       # 【step3】merge 複数のハッシュを結合させるメソッド
-      params.require(:task).permit(:title, :content, :deadline, :status).merge(status: params[:task][:status].to_i)
-    end
-    def set_task
+    params.require(:task).permit(:title, :content, :deadline, :status).merge(status: params[:task][:status].to_i)
+  end
+
+  def set_task
     @task = Task.find(params[:id])
-    end
-
-
+  end
 end
