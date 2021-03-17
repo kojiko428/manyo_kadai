@@ -10,9 +10,9 @@ class TasksController < ApplicationController
      # paramsでソートからのデータをキャッチ (nil?メソッド)
       if params[:sort_deadline].nil?
         # trueを返したら表示
-        @tasks = Task.all.order(created_at: :desc)
+      @tasks = Task.all.order(created_at: :desc)
       else
-        @tasks = Task.all.order(deadline: :desc)
+      @tasks = Task.all.order(deadline: :desc)  
       end
       # binding.pry # raise
      end

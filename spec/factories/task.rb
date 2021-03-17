@@ -5,13 +5,13 @@ FactoryBot.define do
   factory :task do
     title { 'task1' }
     content { 'content1' }
-    deadline { DateTime.now.beginning_of_day + 1.day }
+    deadline { '2021/12/16' }
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
   factory :second_task, class: Task do
     title { 'task2' }
     content { 'content2' }
-    deadline { DateTime.now }
+    deadline { '2021/12/17'  }
   end
 end
