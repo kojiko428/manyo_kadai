@@ -2,10 +2,10 @@
 <p>Find me in app/views/tasks/index.html.erb</p> -->
 
 <!-- searchアクションへのルーティングはGETメソッド -->
-タイトル検索<%= form_with(method: :get, local: true, url: tasks_path) do |form| %>
-<%= form.text_field :title %><br>
+<%= form_with(method: :get, local: true, url: tasks_path) do |form| %>
+タイトル検索<%= form.text_field :'タイトル検索' %><br>
 ステータス検索
-<%= form.select :status, [["未着手", "0"], ["着手中", "1"],
+<%= form.select :'ステータス検索', [["未着手", "0"], ["着手中", "1"],
                           ["完了", "2"]], include_blank: "選択して下さい" %>
 <%= form.submit '検索', title: nil %>
 <% end %>
