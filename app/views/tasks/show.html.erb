@@ -2,7 +2,7 @@
 <p>タイトル: <%= @task.title %></p>
 <p>内容: <%= @task.content %></p>
 <!-- step3 追加 -->
-<p>終了期限： <%= @task.deadline %></p>
+<p>終了期限： <%= l @task.deadline, format: :too_short  %></p>
 <p>ステータス： <%= @task.status %></p>
 <p>優先順位: <%= @task.priority %></p>
 

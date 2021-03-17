@@ -12,7 +12,7 @@ class TasksController < ApplicationController
         # trueを返したら表示
       @tasks = Task.all.order(created_at: :desc)
       else
-      @tasks = Task.all.order(deadline: :desc)  
+      @tasks = Task.all.order(deadline: :desc)
       end
       # binding.pry # raise
      end
@@ -71,7 +71,8 @@ class TasksController < ApplicationController
 
     private
     def task_params
-      params.require(:task).permit(:title, :content, :deadline)
+      # 【step3】merge 複数のハッシュを結合させるメソッド
+      params.require(:task).permit(:title, :content, :deadline, :status).merge(status: params[:task][:status].to_i)
     end
     def set_task
     @task = Task.find(params[:id])
