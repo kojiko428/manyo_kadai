@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
+PER = 3
   def index
     # binding.pry
       # # タスクの一覧
@@ -8,25 +9,27 @@ class TasksController < ApplicationController
       # #=>新しい順の投稿一覧  created_atは作成日時 descは降
       # @tasks = Task.all.order(created_at: :desc)
     if params[:'タイトル検索'].present? && params[:'ステータス検索'].present?
-      @tasks = Task.search_title_and_status params[:'タイトル検索'] , params[:'ステータス検索']
+      @tasks = Task.search_title_and_status params[:'タイトル検索'] , params[:'ステータス検索'].page(params[:page]).per(PER)
     elsif params[:'タイトル検索'].present?
-      @tasks = Task.search_title params[:'タイトル検索']
+      @tasks = Task.search_title params[:'タイトル検索'].page(params[:page]).per(PER)
     elsif params[:'ステータス検索'].present?
-      @tasks = Task.search_status params[:'ステータス検索']
+      @tasks = Task.search_status params[:'ステータス検索'].page(params[:page]).per(PER)
     else
     # paramsでソートからのデータをキャッチ (nil?メソッド)
     if params[:sort_deadline]
        #nil?外し
        # 値がnilの場合、trueを返したら表示
-      @tasks = Task.all.order(deadline: :desc)
+      @tasks = Task.all.order(deadline: :desc).page(params[:page]).per(PER)
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :asc)
+      @tasks = Task.all.order(priority: :asc).page(params[:page]).per(PER)
       # binding.pry
     else
-      @tasks = Task.all.order(created_at: :desc)
+      @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(PER)
 
     end
     end
+    # ページネーションの実装
+    # @tasks = Task.all.page(params[:page]).per(10)
   end
 
   def new

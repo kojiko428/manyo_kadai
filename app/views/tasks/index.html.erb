@@ -49,7 +49,7 @@
 
     <td><%= task.status %></td>
     <!-- 【step3】テスト用class -->
-    <td class='priority_ranking'>><%= task.priority %></td>
+    <td class='priority_ranking'><%= task.priority %></td>
 
 
     <!-- 【8】 -->
@@ -59,7 +59,9 @@
     <td><%= link_to 'タスクを削除する', task_path(task.id) , method: :delete,data: { confirm: '本当に削除していいですか？' }  %></td>
   </tr>
 <% end %>
-
 </table>
+
+
+<%= link_to '新しくタスクを投稿する', new_task_path %><br>
 <br>
-<%= link_to '新しくタスクを投稿する', new_task_path %>
+<%= paginate @tasks %>
