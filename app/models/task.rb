@@ -11,7 +11,7 @@ class Task < ApplicationRecord
 # tasks_contoroller indexのあいまい検索のメソッド
 
 # step3【1】あいまい検索（title）＆完全一致検索（status）
-# error andで結ばす、結合した
+# error:検索時にあいまい検索ができない！ andで結ばす、結合した
   scope :search_title_and_status, ->(title , status) {
   where("title like ?", "%#{title}%").where(status: status)
   }
@@ -27,7 +27,7 @@ class Task < ApplicationRecord
 # step3 優先順位の受け取る値紐づけ 実際に表示される
   enum priority: { '高': 0, '中': 1, '低': 2 }
 
-#【4】完全一致検索(priority)
+#×【4】完全一致検索(priority)
   # scope :search_priority, ->(priority) {
   # where(priority: priority)
   # }

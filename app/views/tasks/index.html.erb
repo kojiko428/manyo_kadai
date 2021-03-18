@@ -11,8 +11,9 @@
 <%= form.select :'ステータス検索',
 [["未着手", "0"], ["着手中", "1"], ["完了", "2"]], include_blank: "選択して下さい" %>
 
-優先順位検索<%= form.select :'priority', [["高", "0"], ["中", "1"],
-                          ["低", "2"]], include_blank: "選択して下さい" %>
+<!-- 検索ではなくソート -->
+<!-- 優先順位検索<%= form.select :'priority', [["高", "0"], ["中", "1"],
+                          ["低", "2"]], include_blank: "選択して下さい" %> -->
 
 <%= form.submit '検索', title: nil %>
 <% end %>
@@ -20,8 +21,9 @@
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
 <!-- step3 -->
-<%= link_to "終了期限でソートする", tasks_path(sort_deadline: "true") %>
-<%= link_to "終了期限でソート解除する", tasks_path %>
+<%= link_to "【1】終了期限でソートする", tasks_path(sort_deadline: "true") %><br>
+<%= link_to "【2】優先順位でソートする", tasks_path(sort_priority: "true") %><br>
+<%= link_to "【3】ソート解除する", tasks_path %>
 
 <table>
   <tr>

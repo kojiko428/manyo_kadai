@@ -15,13 +15,16 @@ class TasksController < ApplicationController
       @tasks = Task.search_status params[:'ステータス検索']
     else
     # paramsでソートからのデータをキャッチ (nil?メソッド)
-    if params[:sort_deadline].nil?
-       # trueを返したら表示
-      @tasks = Task.all.order(created_at: :desc)
-    # elsif params[:priority].nil?
-    #   @tasks = Task.all.order(priority: :asc)
-    else
+    if params[:sort_deadline]
+       #nil?外し
+       # 値がnilの場合、trueを返したら表示
       @tasks = Task.all.order(deadline: :desc)
+    elsif params[:sort_priority]
+      @tasks = Task.all.order(priority: :asc)
+      # binding.pry
+    else
+      @tasks = Task.all.order(created_at: :desc)
+
     end
     end
   end
