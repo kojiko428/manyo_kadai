@@ -7,12 +7,12 @@ class TasksController < ApplicationController
       # @tasks = Task.all
       # #=>新しい順の投稿一覧  created_atは作成日時 descは降
       # @tasks = Task.all.order(created_at: :desc)
-    if params[:title].present? && params[:status].present?
-      @tasks = Task.search_status_title params[:title],params[:status]
-    elsif params[:title].present?
-      @tasks = Task.search_title params[:title]
-    elsif params[:status].present?
-      @tasks = Task.search_status params[:status]
+    if params[:'タイトル検索'].present? && params[:'ステータス検索'].present?
+      @tasks = Task.search_status_title params[:'タイトル検索'],params[:'ステータス検索']
+    elsif params[:'タイトル検索'].present?
+      @tasks = Task.search_title params[:'タイトル検索']
+    elsif params[:'ステータス検索'].present?
+      @tasks = Task.search_status params[:'ステータス検索']
     else
     # paramsでソートからのデータをキャッチ (nil?メソッド)
     if params[:sort_deadline].nil?
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all.order(deadline: :desc)
     end
-    end 
+    end
   end
 
   def new
