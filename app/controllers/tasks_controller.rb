@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       # #=>新しい順の投稿一覧  created_atは作成日時 descは降
       # @tasks = Task.all.order(created_at: :desc)
     if params[:'タイトル検索'].present? && params[:'ステータス検索'].present?
-      @tasks = Task.search_status_title params[:'タイトル検索'],params[:'ステータス検索']
+      @tasks = Task.search_title_and_status params[:'タイトル検索'] , params[:'ステータス検索']
     elsif params[:'タイトル検索'].present?
       @tasks = Task.search_title params[:'タイトル検索']
     elsif params[:'ステータス検索'].present?
@@ -18,6 +18,8 @@ class TasksController < ApplicationController
     if params[:sort_deadline].nil?
        # trueを返したら表示
       @tasks = Task.all.order(created_at: :desc)
+    # elsif params[:priority].nil?
+    #   @tasks = Task.all.order(priority: :asc)
     else
       @tasks = Task.all.order(deadline: :desc)
     end
@@ -38,7 +40,7 @@ class TasksController < ApplicationController
     elsif @task.save
        # 一覧画面へ遷移して"ブログを作成しました！"とメッセージを表示します。
        #【5】{@task.user.name}さんが
-      redirect_to tasks_path , notice: " ブログを作成しました！"
+      redirect_to tasks_path , notice: " タスクを作成しました！"
     else
        # 入力フォームを再描画します。
       render :new
@@ -58,7 +60,7 @@ class TasksController < ApplicationController
       # @task = Task.find(params[:id])
       # 【5】{@task.user.name}さんが
     if @task.update(task_params)
-      redirect_to tasks_path , notice: " ブログを編集しました！"
+      redirect_to tasks_path , notice: " タスクを編集しました！"
     else
       render :edit
     end
@@ -66,7 +68,7 @@ class TasksController < ApplicationController
      #【5】{@task.user.name}さんが
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice:"ブログを削除しました！"
+    redirect_to tasks_path, notice:"タスクを削除しました！"
   end
 
   def confirm
@@ -81,7 +83,9 @@ class TasksController < ApplicationController
   private
   def task_params
       # 【step3】merge 複数のハッシュを結合させるメソッド
-    params.require(:task).permit(:title, :content, :deadline, :status).merge(status: params[:task][:status].to_i)
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
+      .merge(status: params[:task][:status].to_i, priority: params[:task][:priority].to_i)
+
   end
 
   def set_task

@@ -33,6 +33,13 @@
                             ["完了", "2"]], include_blank: "選択して下さい"  %>
   </div>
 
+  <div class="task_priority">
+  <%= form.label :priority %>
+  <%= form.select :priority, [["高", "0"], ["中", "1"],
+                            ["低", "2"]], include_blank: "選択して下さい"  %>
+  </div>
+
+
   <%= form.submit :Create%>
 
 <% end %>
