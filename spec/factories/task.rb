@@ -7,7 +7,7 @@ FactoryBot.define do
     content { 'content1' }
     deadline { '2021/12/16' }
     status { '完了'}
-    priority{ '高' }
+    priority{ '低' }
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -16,6 +16,6 @@ FactoryBot.define do
     content { 'content2' }
     deadline { '2021/12/17'  }
     status { '未着手'}
-    priority{ '低' }
+    priority{ '高' }
   end
 end
