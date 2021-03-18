@@ -15,17 +15,17 @@
 <!-- 優先順位検索<%= form.select :'priority', [["高", "0"], ["中", "1"],
                           ["低", "2"]], include_blank: "選択して下さい" %> -->
 
-<%= form.submit '検索', title: nil %>
+<%= form.submit '検索', title: nil , class: 'btn btn-primary'%>
 <% end %>
 
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
 <!-- step3 -->
-<%= link_to "終了期限でソートする", tasks_path(sort_deadline: "true") %><br>
-<%= link_to "優先順位でソートする", tasks_path(sort_priority: "true") %><br>
-<%= link_to "ソート解除する", tasks_path %>
+<%= link_to "終了期限でソートする", tasks_path(sort_deadline: "true"), class:"btn btn-danger" %><br>
+<%= link_to "優先順位でソートする", tasks_path(sort_priority: "true"), class:"btn btn-warning" %><br>
+<%= link_to "ソート解除する", tasks_path ,class: 'btn btn-info' %>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>タイトル</th>
     <th>内容</th>
@@ -54,14 +54,16 @@
 
     <!-- 【8】 -->
     <!-- <td><%#= "#{task.user.name}さんのタスク" %></td> -->
-    <td><%= link_to '詳細を確認する', task_path(task.id) %></td>
-    <td><%= link_to 'タスクを編集する', edit_task_path(task.id) , data: { confirm: '本当に編集していいですか？' } %></td>
-    <td><%= link_to 'タスクを削除する', task_path(task.id) , method: :delete,data: { confirm: '本当に削除していいですか？' }  %></td>
+    <td><%= link_to '詳細を確認する', task_path(task.id), class: 'btn btn-primary' %></td>
+    <td><%= link_to 'タスクを編集する', edit_task_path(task.id) ,
+        data: { confirm: '本当に編集していいですか？' }, class: 'btn btn-success' %></td>
+    <td><%= link_to 'タスクを削除する', task_path(task.id),
+        method: :delete,data: { confirm: '本当に削除していいですか？' } ,class: 'btn btn-info' %></td>
   </tr>
 <% end %>
 </table>
 
 
-<%= link_to '新しくタスクを投稿する', new_task_path %><br>
+<%= link_to '新しくタスクを投稿する', new_task_path ,class:"btn btn-warning" %><br>
 <br>
 <%= paginate @tasks %>

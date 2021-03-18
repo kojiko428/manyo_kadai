@@ -12,15 +12,18 @@ class Task < ApplicationRecord
 
 # step3【1】あいまい検索（title）＆完全一致検索（status）
 # error:検索時にあいまい検索ができない！ andで結ばす、結合した
-  scope :search_title_and_status, ->(title , status) {
-  where("title like ?", "%#{title}%").where(status: status)
-  }
+
+# 使用がなくコメントアウト
+  # scope :search_title_and_status, ->(title , status) {
+  # where("title like ?", "%#{title}%").where(status: status)
+  # }
 # 【2】あいまい検索（title）
   scope :search_title, ->(title) {
   where("title like ?", "%#{title}%")
   }
 # 【3】完全一致検索（status）
   scope :search_status, ->(status) {
+  status = status.to_i
   where(status: status)
   }
 

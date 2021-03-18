@@ -12,7 +12,7 @@ FactoryBot.define do
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
   factory :second_task, class: Task do
-    title { 'sample2' }
+    title { 'task2' }
     content { 'content2' }
     deadline { '2021/12/17'  }
     status { '未着手'}

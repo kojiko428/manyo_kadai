@@ -72,6 +72,8 @@ group :test do
 # rspec実装時コメントアウト
   # gem 'chromedriver-helper'      #【-】島さん コメントアウトしない
   gem 'webdrivers'                #【7】島さん コメントアウト
+# # Rubyのデータを削除するためのgem
+#   gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,36 +1,19 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+# binding.pry
 
-PER = 3
-  def index
-    # binding.pry
-      # # タスクの一覧
-      # @tasks = Task.all
-      # #=>新しい順の投稿一覧  created_atは作成日時 descは降
-      # @tasks = Task.all.order(created_at: :desc)
-    if params[:'タイトル検索'].present? && params[:'ステータス検索'].present?
-      @tasks = Task.search_title_and_status params[:'タイトル検索'] , params[:'ステータス検索'].page(params[:page]).per(PER)
-    elsif params[:'タイトル検索'].present?
-      @tasks = Task.search_title params[:'タイトル検索'].page(params[:page]).per(PER)
-    elsif params[:'ステータス検索'].present?
-      @tasks = Task.search_status params[:'ステータス検索'].page(params[:page]).per(PER)
-    else
-    # paramsでソートからのデータをキャッチ (nil?メソッド)
-    if params[:sort_deadline]
-       #nil?外し
-       # 値がnilの場合、trueを返したら表示
-      @tasks = Task.all.order(deadline: :desc).page(params[:page]).per(PER)
-    elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :asc).page(params[:page]).per(PER)
-      # binding.pry
-    else
-      @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(PER)
+def index
+   @tasks = Task.all.order(created_at: :desc)
+   @tasks = @tasks.all.order(deadline: :desc) if params[:sort_deadline]
+   @tasks = @tasks.all.order(priority: :asc) if params[:sort_priority]
+   @tasks = @tasks.search_title(params[:'タイトル検索']) if params[:'タイトル検索']
+# 選択しない場合の空欄やnilを受け付けないようにする
+   if params[:'ステータス検索'] != "" && params[:'ステータス検索'] != nil
+     @tasks = @tasks.search_status(params[:'ステータス検索'])
+   end
+   @tasks = @tasks.page(params[:page]).per(10)
+ end
 
-    end
-    end
-    # ページネーションの実装
-    # @tasks = Task.all.page(params[:page]).per(10)
-  end
 
   def new
     @task =Task.new
