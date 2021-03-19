@@ -205,7 +205,6 @@ ja:
       #上記に変更 "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
-      too_short: "%m/%d"
     pm: 午後
 
     # ここまで
