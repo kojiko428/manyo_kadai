@@ -9,7 +9,7 @@ RSpec.describe 'タスクモデル機能', type: :model do
       it "検索キーワードを含むタスクが絞り込まれる" do
         # title_seachはscopeで提示したタイトル検索用メソッドである。
         # メソッド名は任意で構わない。
-        expect(Task.search_title('task').count).to eq 1
+        expect(Task.search_title('task').count).to eq 2
       end
     end
     context 'scopeメソッドでステータス検索をした場合' do
