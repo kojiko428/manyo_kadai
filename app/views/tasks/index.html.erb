@@ -34,8 +34,9 @@
     <th>作成日時</th>
     <th>ステータス</th>
     <th>優先順位</th>
-
+    <th>ユーザー名</th>
   </tr>
+
 <% @tasks.each do |task| %>
   <tr>
     <!-- rsepc用 index.html.erbにclass名を命名 -->
@@ -51,9 +52,7 @@
     <!-- 【step3】テスト用class -->
     <td class='priority_ranking'><%= task.priority %></td>
 
-
-    <!-- 【8】 -->
-    <!-- <td><%#= "#{task.user.name}さんのタスク" %></td> -->
+    <td><%= "#{task.user.name}さん" %></td>
     <td><%= link_to '詳細を確認する', task_path(task.id), class: 'btn btn-primary' %></td>
     <td><%= link_to 'タスクを編集する', edit_task_path(task.id) ,
         data: { confirm: '本当に編集していいですか？' }, class: 'btn btn-success' %></td>

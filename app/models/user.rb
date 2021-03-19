@@ -9,5 +9,5 @@ class User < ApplicationRecord
 # アソシエーション
   has_many :tasks, dependent: :destroy
 #お気に入り機能
-  has_many :favorites, dependent: :destroy
+  # has_many :favorites, dependent: :destroy
 end

@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-
+# app/controllers/application_controller.rb
+# ログインしていないユーザはログイン画面に飛ばす
+skip_before_action :login_required, only: [:new, :create]
 
   def new
   end
