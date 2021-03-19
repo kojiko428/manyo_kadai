@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post :confirm
    end
   end
+
   # 【1】
   # resources :sessions, only: [:new, :create, :destroy]
   # resources :favorites, only: [:create, :destroy]

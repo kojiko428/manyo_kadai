@@ -1,29 +1,69 @@
 <!-- <h1>Tasks#index</h1>
 <p>Find me in app/views/tasks/index.html.erb</p> -->
 
+<!-- searchアクションへのルーティングはGETメソッド -->
+<%= form_with(method: :get, local: true, url: tasks_path) do |form| %>
+
+タイトル検索<%= form.text_field :'タイトル検索'  %><br>
+
+
+ステータス検索
+<%= form.select :'ステータス検索',
+[["未着手", "0"], ["着手中", "1"], ["完了", "2"]], include_blank: "選択して下さい" %>
+
+<!-- 検索ではなくソート -->
+<!-- 優先順位検索<%= form.select :'priority', [["高", "0"], ["中", "1"],
+                          ["低", "2"]], include_blank: "選択して下さい" %> -->
+
+<%= form.submit '検索', title: nil , class: 'btn btn-primary'%>
+<% end %>
+
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
-<table>
+<!-- step3 -->
+<%= link_to "終了期限でソートする", tasks_path(sort_deadline: "true"), class:"btn btn-danger" %><br>
+<%= link_to "優先順位でソートする", tasks_path(sort_priority: "true"), class:"btn btn-warning" %><br>
+<%= link_to "ソート解除する", tasks_path ,class: 'btn btn-info' %>
+
+<table class="table table-striped">
   <tr>
     <th>タイトル</th>
     <th>内容</th>
+    <!-- 教科書の画像通りの順番 -->
+    <th>終了期限</th>
     <th>作成日時</th>
+    <th>ステータス</th>
+    <th>優先順位</th>
+
   </tr>
 <% @tasks.each do |task| %>
   <tr>
     <!-- rsepc用 index.html.erbにclass名を命名 -->
     <td class="task_row"><%= task.title  %></td>
     <td><%= task.content %></td>
+    <!-- 【step3】lメソッド＆formatオプション too_shortに設定-->
+    <!-- data_selectに変更 -->
+    <td class="deadline_row"><%= l task.deadline, format: :too_short %></td>
     <!-- lメソッド＆formatオプション -->
     <td><%= l task.created_at, format: :short %></td>
+
+    <td><%= task.status %></td>
+    <!-- 【step3】テスト用class -->
+    <td class='priority_ranking'><%= task.priority %></td>
+
+
     <!-- 【8】 -->
     <!-- <td><%#= "#{task.user.name}さんのタスク" %></td> -->
-    <td><%= link_to '詳細を確認する', task_path(task.id) %></td>
-    <td><%= link_to 'タスクを編集する', edit_task_path(task.id) , data: { confirm: '本当に編集していいですか？' } %></td>
-    <td><%= link_to 'タスクを削除する', task_path(task.id) , method: :delete,data: { confirm: '本当に削除していいですか？' }  %></td>
+    <td><%= link_to '詳細を確認する', task_path(task.id), class: 'btn btn-primary' %></td>
+    <td><%= link_to 'タスクを編集する', edit_task_path(task.id) ,
+        data: { confirm: '本当に編集していいですか？' }, class: 'btn btn-success' %></td>
+    <td><%= link_to 'タスクを削除する', task_path(task.id),
+        method: :delete,data: { confirm: '本当に削除していいですか？' } ,class: 'btn btn-info' %></td>
   </tr>
 <% end %>
-
 </table>
+
+
+<%= link_to '新しくタスクを投稿する', new_task_path ,class:"btn btn-warning" %><br>
 <br>
-<%= link_to '新しくタスクを投稿する', new_task_path %>
+<%= paginate @tasks %>

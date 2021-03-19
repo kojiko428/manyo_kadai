@@ -1,6 +1,10 @@
 <h1>ブログ詳細画面</h1>
 <p>タイトル: <%= @task.title %></p>
 <p>内容: <%= @task.content %></p>
+<!-- step3 追加 -->
+<p>終了期限： <%= l @task.deadline, format: :too_short  %></p>
+<p>ステータス： <%= @task.status %></p>
+<p>優先順位: <%= @task.priority %></p>
 
 <!-- 【8】 -->
 <%# unless @task.user_id == current_user.id %>
@@ -11,5 +15,5 @@
   <%# end %>
 <%# end %>
 
-
-<%= link_to "タスク一覧画面にもどる", tasks_path %>
+<%= link_to '編集画面に戻る', edit_task_path(@task), class: 'btn btn-success' %> |
+<%= link_to "タスク一覧画面にもどる", tasks_path, class: 'btn btn-info' %>
