@@ -1,15 +1,18 @@
 require 'rails_helper'
 RSpec.describe 'タスクモデル機能', type: :model do
   before do
-     FactoryBot.create(:task)
-     FactoryBot.create(:second_task)
+     @task = FactoryBot.create(:task)
+     @second_task = FactoryBot.create(:second_task)
+
    end
   describe '検索機能' do
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
         # title_seachはscopeで提示したタイトル検索用メソッドである。
         # メソッド名は任意で構わない。
-        expect(Task.search_title('task').count).to eq 1
+        expect(Task.search_title('task1').count).to eq 1
+        # expect([, , ]).to include
+
       end
     end
     context 'scopeメソッドでステータス検索をした場合' do
