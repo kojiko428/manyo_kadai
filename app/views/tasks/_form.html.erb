@@ -11,14 +11,36 @@
   <% end %>
   <div class="task_title">
     <%= form.label :title %>
-    <%= form.text_field :title  ,id: 'task_title'%>
+    <%= form.text_field :title, id: 'task_title'%>
   </div>
   <div class="task_content">
     <%= form.label :content %>
-    <%= form.text_field :content ,id: 'task_content'%>
+    <%= form.text_field :content, id: 'task_content'%>
+  </div>
+  <div>
+  <!-- 【step3】date_fielde メソッドにて日付を入力 -->
+  <div class="task_deadline">
+  <%= form.label :deadline %>
+  <!-- 【3】date_fieldの要素が取れず変更 -->
+  <%= form.date_field :deadline, id: 'task_deadline' %>
+  </div>
+  <!-- 【step3】プルダウン f.selectはRailsのヘルパーメソッドform_withと一緒に使用 -->
+  <!-- <%#= f.select( 属性, 選択肢の集合, {オプション}, {HTMLオプション} ) %> -->
+  <!-- 【step3】 -->
+  <div class="task_status">
+  <%= form.label :status %>
+  <%= form.select :status, [["未着手", "0"], ["着手中", "1"],
+                            ["完了", "2"]], include_blank: "選択して下さい"  %>
   </div>
 
-  <%= form.submit :Create%>
+  <div class="task_priority">
+  <%= form.label :priority %>
+  <%= form.select :priority, [["高", "0"], ["中", "1"],
+                            ["低", "2"]], include_blank: "選択して下さい"  %>
+  </div>
+
+
+  <%= form.submit :Create  ,class:"btn btn-warning" %>
 
 <% end %>
-<%= link_to "タスク一覧画面にもどる", tasks_path %>
+<%= link_to "タスク一覧画面にもどる", tasks_path, class:'btn btn-danger' %>
