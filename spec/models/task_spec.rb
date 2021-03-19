@@ -1,4 +1,9 @@
+# 現在実装の空エラーのバリデーション
+  # validates :title, presence: true
+  # validates :content, presence: true
+
 require 'rails_helper'
+
 RSpec.describe 'タスクモデル機能', type: :model do
   before do
      @task = FactoryBot.create(:task)
@@ -13,7 +18,7 @@ RSpec.describe 'タスクモデル機能', type: :model do
         expect(Task.search_title('task1').count).to eq 1
         # expect([, , ]).to include
 
-      end
+　　　end
     end
     context 'scopeメソッドでステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
@@ -30,23 +35,27 @@ RSpec.describe 'タスクモデル機能', type: :model do
   end
 
   describe 'バリデーションのテスト' do
-     context 'タスクのタイトルが空の場合' do
-       it 'バリデーションにひっかる' do
-         task = Task.new(title: '', content: '失敗テスト')
-         expect(task).not_to be_valid
-       end
-     end
-     context 'タスクの詳細が空の場合' do
-       it 'バリデーションにひっかかる' do
-         task = Task.new(title: '失敗テスト', content: '')
-         expect(task).not_to be_valid
-       end
-     end
-     context 'タスクのタイトルと詳細に内容が記載されている場合' do
-       it 'バリデーションが通る' do
-         task = Task.new(title: '成功テスト', content: '成功', deadline: '2021/12/16', status: '未着手', priority: '中' )
-         expect(task).to be_valid
-       end
-     end
-   end
+    context 'タスクのタイトルが空の場合' do
+      it 'バリデーションにひっかる' do
+        task = Task.new(title: '', content: '失敗テスト')
+        expect(task).not_to be_valid
+      end
+    end
+
+
+    context 'タスクの詳細が空の場合' do
+      it 'バリデーションにひっかかる' do
+        task = Task.new(title: '失敗テスト', content: '')
+        expect(task).not_to be_valid
+      end
+    end
+
+    context 'タスクのタイトルと詳細に内容が記載されている場合' do
+      it 'バリデーションが通る' do
+        task = Task.new(title: '成功テスト', content: '成功テスト')
+        expect(task).to be_valid
+
+      end
+    end
+  end
 end
