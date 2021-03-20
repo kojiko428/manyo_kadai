@@ -6,23 +6,43 @@ class UsersController < ApplicationController
 
 # Sessions Helper  異なるユーザーページに旋廻しない制御
   before_action :correct_user,only:[:show]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
 # 【2】
   def new
     @user = User.new
   end
   def create
-      @user = User.new(user_params)
-     if @user.save
-     # 即ログイン
-     session[:user_id] = @user.id
-     redirect_to user_path(@user.id)
-     else
-     render :new
-     end
+    @user = User.new(user_params)
+    if @user.save
+    # 即ログイン
+    session[:user_id] = @user.id
+    redirect_to user_path(@user.id)
+    else
+    render :new
+    end
   end
+
   def show
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+  end
+
+  def edit
+    # @user = User.find(params[:id])
+  end
+
+  def update
+    # @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to user_path(@user.id), notice: "プロフィールを編集しました！"
+    else
+      render :edit
+    end
+  end
+  def destroy
+    # @users = User.find(params[:id])
+    @users.destroy    #{@user.name}さん
+    redirect_to admin_user_url, notice: "関連のデータを削除しました"
   end
 
   private
@@ -31,7 +51,8 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
 
+  def set_user
+   @users = User.find(params[:id])
+  end
+
 end
-  # def set_user
-  #  @user = User.find(params[:id])
-  # end

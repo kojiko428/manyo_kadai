@@ -1,0 +1,16 @@
+<h1>管理者用 Sign up</h1>
+<br>
+<br>
+<% if @users.errors.any? %>
+  <div id="error_explanation">
+    <!-- エラーカウント -->
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+    <ul>
+    <% @users.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render 'form', user: @user %>
