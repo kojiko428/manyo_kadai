@@ -3,7 +3,9 @@ class UsersController < ApplicationController
   # Sessions_helperから飛ばしている
   skip_before_action :login_required, only: [:new, :create]
   # before_action :set_user, only: [:show, :edit, :update]
-  # before_action :correct_user, only: [:edit, :update, :destroy]
+
+# Sessions Helper  異なるユーザーページに旋廻しない制御
+  before_action :correct_user,only:[:show]
 
 # 【2】
   def new
@@ -12,6 +14,8 @@ class UsersController < ApplicationController
   def create
       @user = User.new(user_params)
      if @user.save
+     # 即ログイン
+     session[:user_id] = @user.id
      redirect_to user_path(@user.id)
      else
      render :new
@@ -27,15 +31,7 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
 
+end
   # def set_user
   #  @user = User.find(params[:id])
   # end
-
-  # def correct_user
-  #   if current_user.id != @user.id
-  #     redirect_to user_path
-  #   end
-  # end
-
-
-end
