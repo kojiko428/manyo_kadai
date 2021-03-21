@@ -17,13 +17,15 @@
 #   user.save!
 # end
 
-# 管理者権限をもつユーザー rails db:seedでerror中
-User.create!(username:  "管理者",
-             email: "admin@example.jp",
-             password:  "123456789",
-             password_confirmation: "123456789",
+# 管理者権限をもつユーザー rails db:seedでerror
+# →①上記をコメントアウト、②類似ユーザーと異なるようにした→解消
+User.create!(name:  "管理者",
+             email: "admin1@example.jp",
+             password:  "12345678",
+             password_confirmation: "12345678",
              admin: true)
 
+# 自作した類似ユーザー情報
 # username:  "管理者",
 # email: "admin@example.jp",
 # password:  "12345678",

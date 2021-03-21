@@ -21,8 +21,9 @@
 
 
 <table class="table table-striped">
+  <thead>
     <tr>
-      <th>タイトル</th>
+      <th>タスク名</th>
       <th>内容</th>
       <!-- 教科書の画像通りの順番 -->
       <th>終了期限</th>
@@ -30,7 +31,9 @@
       <th>ステータス</th>
       <th>優先順位</th>
       <th>ユーザー名</th>
+      <th colspan="3"></th>
     </tr>
+  </thead>
 
   <% @tasks.each do |task| %>
   <!--4-4  自分が作成したタスクだけを表示させる -->
