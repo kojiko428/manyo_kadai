@@ -1,7 +1,7 @@
-<h1>管理者用 Sign up</h1>
+<h1>管理者用 新規登録</h1>
 <br>
 <br>
-<% if @users.errors.any? %>
+<% if @user.errors.any? %>
   <div id="error_explanation">
     <!-- エラーカウント -->
     <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>

@@ -10,4 +10,25 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 #お気に入り機能
   # has_many :favorites, dependent: :destroy
+
+# 削除直前
+  before_destroy :check_admin_deatroy
+# 更新直前
+  before_update :check_admin_update
+
+  private
+    def check_admin_deatroy
+       if User.where(admin: true).count <= 1 && self.admin == true
+       errors.add(:admin,"は、最低でも１人は必要です。")
+       throw(:abort)
+       end
+    end
+
+    def check_admin_update
+      if User.where(admin: true).count <= 1 && self.admin == true
+         errors.add(:admin,"は、最低でも１人は必要です。")
+      throw(:abort)
+      end
+    end
+
 end
