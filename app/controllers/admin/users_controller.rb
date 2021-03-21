@@ -62,7 +62,7 @@ before_action :require_admin
     def require_admin
       # 現在のユーザーでなく、管理者でもない
       if current_user.nil? || !current_user.admin?
-        redirect_to tasks_path, notice: "管理者以外はアクセスできません。"
+        redirect_to tasks_path, notice: "管理者以外はアクセスできません"
       end
     end
 
