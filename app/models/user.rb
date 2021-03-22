@@ -12,12 +12,12 @@ class User < ApplicationRecord
   # has_many :favorites, dependent: :destroy
 
 # 削除直前
-  before_destroy :check_admin_deatroy
+  before_destroy :check_admin_destroy
 # 更新直前
   before_update :check_admin_update
 
   private
-    def check_admin_deatroy
+    def check_admin_destroy
        if User.where(admin: true).count <= 1 && self.admin == true
        errors.add(:admin,"は、最低でも１人は必要です。")
        throw(:abort)
@@ -25,10 +25,10 @@ class User < ApplicationRecord
     end
 
     def check_admin_update
-      if User.where(admin: true).count <= 1 && self.admin == true
-         errors.add(:admin,"は、最低でも１人は必要です。")
-      throw(:abort)
-      end
-    end
+     if User.where(admin: true).count <= 1 && self.admin == true
+        errors.add(:admin,"は、最低でも１人は必要です。")
+     throw(:abort)
+     end
+   end
 
 end
