@@ -37,6 +37,9 @@ class Task < ApplicationRecord
 
 # アソシエーション
   belongs_to :user
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
+
 #【6】 #お気に入り
 #   has_many :favorites, dependent: :destroy
 #   has_many :favorite_users, through: :favorites, source: :user
