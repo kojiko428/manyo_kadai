@@ -14,9 +14,9 @@ class Task < ApplicationRecord
 # error:検索時にあいまい検索ができない！ andで結ばす、結合した
 
 # 使用がなくコメントアウト
-  # scope :search_title_and_status, ->(title , status) {
-  # where("title like ?", "%#{title}%").where(status: status)
-  # }
+  scope :search_title_and_status, ->(title , status) {
+  where("title like ?", "%#{title}%").where(status: status)
+  }
 # 【2】あいまい検索（title）
   scope :search_title, ->(title) {
   where("title like ?", "%#{title}%")
@@ -36,7 +36,7 @@ class Task < ApplicationRecord
   # }
 
 # アソシエーション
-#   belongs_to :user
+  belongs_to :user
 #【6】 #お気に入り
 #   has_many :favorites, dependent: :destroy
 #   has_many :favorite_users, through: :favorites, source: :user

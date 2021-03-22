@@ -1,0 +1,38 @@
+<h2>管理画面 登録ユーザー一覧</h2>
+
+<table class="table">
+<br>
+  <thead>
+    <tr class="table-info">
+      <!-- tメソッドで記載して翻訳ファイルをあてる -->
+      <th><%= t('user.id') %></th>
+      <th><%= t('user.name') %></th>
+      <!-- boolean型なのでture.falseを返す -->
+      <th><%= t('user.admin') %></th>
+      <th><%= t('user.task_count') %></th>
+      <!-- 3列セルの結合 -->
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.admin %></td>
+          <!-- タスクカウント -->
+          <!-- ルート確認 -->
+          <td><%= user.tasks.count %></td>
+          <td><%= link_to '詳細', admin_user_path(user) , class: 'btn btn-primary'%></td>
+          <td><%= link_to '編集', edit_admin_user_path(user),
+          data: { confirm: '本当に編集していいですか？' }, class: 'btn btn-success'  %></td>
+          <td><%= link_to '削除', admin_user_path(user),
+          method: :delete,data: { confirm: '本当に削除していいですか？' }, class:"btn btn-danger"  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+<br>
+<br>
+<%= link_to '新規ユーザー作成', new_admin_user_path ,class:"btn btn-warning"%>

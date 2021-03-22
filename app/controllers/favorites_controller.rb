@@ -7,4 +7,4 @@ class FavoritesController < ApplicationController
 #     favorite = current_user.favorites.find_by(id: params[:id]).destroy
 #     redirect_to tasks_path, notice: "#{favorite.task.user.name}さんのタスクをお気に入り解除しました"
 #   end
-# end
+end
