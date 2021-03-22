@@ -1,20 +1,20 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 # binding.pry
-  
+
 
 def index
-   @tasks = Task.all.order(created_at: :desc)
-   @tasks = @tasks.all.order(deadline: :desc) if params[:sort_deadline]
-   @tasks = @tasks.all.order(priority: :asc) if params[:sort_priority]
-   @tasks = @tasks.search_title(params[:'タイトル検索']) if params[:'タイトル検索']
-# 選択しない場合の空欄やnilを受け付けないようにする
-   if params[:'ステータス検索'] != "" && params[:'ステータス検索'] != nil
-     @tasks = @tasks.search_status(params[:'ステータス検索'])
-   end
-   @tasks = @tasks.page(params[:page]).per(10)
- end
+  @tasks = Task.all.order(created_at: :desc)
+  @tasks = Task.all.order(deadline: :desc) if params[:sort_deadline]
+  @tasks = Task.all.order(priority: :asc) if params[:sort_priority]
+  @tasks = @tasks.search_title(params[:'タイトル検索']) if params[:'タイトル検索']
+  # 選択しない場合の空欄やnilを受け付けないようにする
+  if params[:'ステータス検索'] != "" && params[:'ステータス検索'] != nil
+    @tasks = @tasks.search_status(params[:'ステータス検索'])
+  end
 
+  @tasks = @tasks.page(params[:page]).per(10)
+  end
 
   def new
     @task =Task.new
@@ -72,7 +72,8 @@ def index
   private
   def task_params
       # 【step3】merge 複数のハッシュを結合させるメソッド
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority).merge(status: params[:task][:status].to_i, priority: params[:task][:priority].to_i)
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
+    .merge(status: params[:task][:status].to_i, priority: params[:task][:priority].to_i)
 
   end
 
