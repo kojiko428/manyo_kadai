@@ -19,14 +19,26 @@
 
 # 管理者権限をもつユーザー rails db:seedでerror
 # →①上記をコメントアウト、②類似ユーザーと異なるようにした→解消
-User.create!(name:  "管理者",
-             email: "admin1@example.jp",
-             password:  "12345678",
-             password_confirmation: "12345678",
-             admin: true)
+# User.create!(name:  "管理者",
+#              email: "admin1@example.jp",
+#              password:  "12345678",
+#              password_confirmation: "12345678",
+#              admin: true)
 
 # 自作した類似ユーザー情報
 # username:  "管理者",
 # email: "admin@example.jp",
 # password:  "12345678",
 # password_confirmation: "12345678",
+
+Label.create!(
+  name: '開発'
+)
+
+Label.create!(
+  name: '設計'
+)
+
+Label.create!(
+  name: 'テスト'
+)

@@ -12,6 +12,11 @@ def index
   if params[:'ステータス検索'] != "" && params[:'ステータス検索'] != nil
     @tasks = @tasks.search_status(params[:'ステータス検索'])
   end
+  # ラベル検索
+  if params[:label_id] != "" && params[:label_id] != nil
+   @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] })
+   # if params[:label_id].present?
+  end
 
   @tasks = @tasks.page(params[:page]).per(10)
   end
@@ -72,8 +77,9 @@ def index
   private
   def task_params
       # 【step3】merge 複数のハッシュを結合させるメソッド
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
-    .merge(status: params[:task][:status].to_i, priority: params[:task][:priority].to_i)
+      # label_ids追加
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority, {label_ids: []})
+    .merge(status: params[:task][:status].to_i, priority: params[:task][:priority].to_i )
 
   end
 

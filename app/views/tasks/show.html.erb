@@ -7,6 +7,12 @@
 <p>ステータス： <%= @task.status %></p>
 <p>優先順位: <%= @task.priority %></p>
 
+<p>タグ:
+  <% @task.labels.each do |label| %>
+    <%= label.name %><br>
+  <% end %>
+</p>
+
 <!-- 【8】 -->
 <%# unless @task.user_id == current_user.id %>
   <%# if @favorite.present? %>
@@ -16,5 +22,5 @@
   <%# end %>
 <%# end %>
 
-<%= link_to '編集画面に戻る', edit_task_path(@task), class: 'btn btn-success' %> 
+<%= link_to '編集画面に戻る', edit_task_path(@task), class: 'btn btn-success' %>
 <%= link_to "タスク一覧画面にもどる", tasks_path, class: 'btn btn-info' %>

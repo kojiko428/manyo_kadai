@@ -40,7 +40,15 @@ class Task < ApplicationRecord
   has_many :labellings, dependent: :destroy
   has_many :labels, through: :labellings
 
+# # ラベル
+#   scope :search_label, ->(label) {
+#   label = label.to_i
+#   where(label: label)
+#   }
+
+
 #【6】 #お気に入り
 #   has_many :favorites, dependent: :destroy
 #   has_many :favorite_users, through: :favorites, source: :user
+
 end
